@@ -1,0 +1,45 @@
+<div class="modal-header">
+    <h3 class="modal-title">New section</h3>
+</div>
+<div class="modal-body">
+        <form name="createSectionForm" ng-submit="submitCreateSectionForm(createSectionForm.$valid)" novalidate>
+            <div class="row">
+                <fieldset>
+                    <div class="form-group">
+                        <label class="control-label col-md-4" for="title">Title:</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control input-sm" id="title" name="title" ng-model="new_sec.title" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-4" for="zone">Description:</label>
+                        <div class="col-md-8">
+                            <textarea class="form-control" rows="4" cols="50" ng-model="new_sec.description"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-4" for="section_type">Section type:</label>
+                        <div class="col-md-8">
+                            <select class="form-control input-sm " id="section_type" name="section_type" ng-options="type.id as type.label for type in section_types" ng-model="a.section_type" required>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-sm btn-success" ng-disabled="createSectionForm.$invalid">Create Section <span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                        </div>
+                    </div>
+
+                </fieldset>
+                
+            </div>
+
+        </form>
+</div>
+<div class="modal-footer">
+    <!-- <button class="btn btn-primary" type="button" ng-click="ok()">OK</button> -->
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+</div>

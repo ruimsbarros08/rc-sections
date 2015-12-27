@@ -1,0 +1,15 @@
+<div class="row">
+	<div class="col-md-2">
+
+		<div class="" role="navigation">
+            <ul class="nav">
+            	<li> <button class="btn btn-success" ng-click="open()" style="width: 100%;">New Section  <span class="glyphicon glyphicon-plus" aria-hidden="true"></button></li>
+              	<li ng-repeat="section in sections" ><a ui-sref="sections.detail( { id: {{ section.id }} } )" data-toggle="tooltip" title="{{ section.description }}">{{ section.title }}</a></li>           
+            </ul>
+        </div>
+
+	</div>
+	<div class="col-md-10">
+		<div ui-view ></div>
+	</div>
+</div>

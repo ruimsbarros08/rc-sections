@@ -1,0 +1,192 @@
+<div class="row">
+    <div class="col-md-12">
+        <h2>{{ a.title }} </h2>
+        <h4 class="text-muted">{{ a.description }}</h4>
+    </div>
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-12">
+                <div style="width: 50%;">
+                    <label for="scale">Zoom</label>
+                    <input type="range" name="scale" min="0.1" max="1.2" step="0.1" ng-model="scale" class="add-bottom">
+                </div>
+                <!-- <div id="webglContainer" ng-Section width="128" height="512" fillcontainer="true" scale="scale" geometry="a.geometry"></div> -->
+                <!-- <canvas id="myCanvas" resize style="width: 100%; height: 250px;"></canvas> -->
+            </div>
+            <div class="col-md-12">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#uls">ULS</a></li>
+                    <li><a data-toggle="tab" href="#char">Characteristc</a></li>
+                    <li><a data-toggle="tab" href="#freq">Frequent</a></li>
+                    <li><a data-toggle="tab" href="#qp">Quasi-Permanent</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="uls" class="tab-pane fade in active">
+                        <h3>Ultimate Limit State</h3>
+                        <hot-table settings="{ afterChange: afterUlsChange }" row-headers="false" min-spare-rows="true" datarows="a.actions.uls" height="150" width="250">
+                            <hot-column data="n" title="'N'" type="'numeric'" width="80"></hot-column>
+                            <hot-column data="my" title="'My'" type="'numeric'" width="80"></hot-column>
+                            <hot-column data="mz" title="'Mz'" type="'numeric'" width="80"></hot-column>
+                        </hot-table>
+                    </div>
+                    <div id="char" class="tab-pane fade">
+                        <h3>Characteristic</h3>
+                        <hot-table settings="{ afterChange: afterCharChange }" row-headers="false" min-spare-rows="true" datarows="a.actions.char" height="150" width="250">
+                            <hot-column data="n" title="'N'" type="'numeric'" width="80"></hot-column>
+                            <hot-column data="my" title="'My'" type="'numeric'" width="80"></hot-column>
+                            <hot-column data="mz" title="'Mz'" type="'numeric'" width="80"></hot-column>
+                        </hot-table>
+                    </div>
+                    <div id="freq" class="tab-pane fade">
+                        <h3>Frequent</h3>
+                        <hot-table settings="{ afterChange: afterFreqChange }" row-headers="false" min-spare-rows="true" datarows="a.actions.freq" height="150" width="250">
+                            <hot-column data="n" title="'N'" type="'numeric'" width="80"></hot-column>
+                            <hot-column data="my" title="'My'" type="'numeric'" width="80"></hot-column>
+                            <hot-column data="mz" title="'Mz'" type="'numeric'" width="80"></hot-column>
+                        </hot-table>
+                    </div>
+                    <div id="qp" class="tab-pane fade">
+                        <h3>Quasi-Permanent</h3>
+                        <hot-table settings="{ afterChange: afterQpChange }" row-headers="false" min-spare-rows="true" datarows="a.actions.qp" height="150" width="250">
+                            <hot-column data="n" title="'N'" type="'numeric'" width="80"></hot-column>
+                            <hot-column data="my" title="'My'" type="'numeric'" width="80"></hot-column>
+                            <hot-column data="mz" title="'Mz'" type="'numeric'" width="80"></hot-column>
+                        </hot-table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <form class="form-horizontal" name="updateForm" ng-submit="submitUpdateForm(updateForm.$valid)" novalidate>
+            <fieldset>
+                <button type="button" class="btn btn-sm btn-danger" ng-click="deleteSection()">Delete section <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                <button type="submit" class="btn btn-sm btn-primary" ng-disabled="updateForm.$invalid">Analyze<span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
+                <h3>Materials</h3>
+                <div class="form-group">
+                    <label class="control-label col-md-12" for="concerte_class">Concrete class:</label>
+                    <div class="col-md-12">
+                        <select class="form-control input-sm " id="concerte_class" name="concerte_class" ng-options="concerte_class.id as concerte_class.label for concerte_class in concerte_classes" ng-model="a.concerte_class" required>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-12" for="steel_class">Steel class:</label>
+                    <div class="col-md-12">
+                        <select class="form-control input-sm " id="steel_class" name="steel_class" ng-options="steel_class as steel_class for steel_class in steel_classes" ng-model="a.steel_class" required>
+                        </select>
+                    </div>
+                </div>
+                <!-- 						<div class="form-group">
+						    <label class="control-label col-md-3" for="limit_state">Limit state:</label>
+						    <div class="col-md-9">
+						      	<select class="form-control input-sm " id="limit_state" name="limit_state" ng-options="limit_state.id as limit_state.label for limit_state in limit_states" ng-model="a.limit_state" required>
+						      	</select>
+						    </div>
+
+						</div> -->
+                <h3>Geometry</h3>
+                <div class="form-group" ng-show="a.section_type == 'RECT' ">
+                    <label class="control-label col-md-3" for="height">Height (m):</label>
+                    <div class="col-md-3">
+                        <input type="number" class="form-control input-sm" id="height" name="height" ng-model="a.geometry.height" min='0' ng-change="updateGeometry()">
+                    </div>
+                    <label class="control-label col-md-3" for="width">Width (m):</label>
+                    <div class="col-md-3">
+                        <input type="number" class="form-control input-sm" id="width" name="width" ng-model="a.geometry.width" min='0'>
+                    </div>
+                </div>
+                <div class="form-group" ng-show="a.section_type == 'CIRC' ">
+                    <label class="control-label col-md-3" for="diam">Diameter (m):</label>
+                    <div class="col-md-9">
+                        <input type="number" class="form-control input-sm" id="diam" name="diam" ng-model="a.geometry.diam" min='0' ng-change="updateGeometry()">
+                    </div>
+                </div>
+                <div class="form-group" ng-show="a.section_type == 'T' ">
+                    <label class="control-label col-md-3" for="height">Height (m):</label>
+                    <div class="col-md-3">
+                        <input type="number" class="form-control input-sm" id="height" name="height" ng-model="a.geometry.height" min='0' ng-change="updateGeometry()">
+                    </div>
+                    <label class="control-label col-md-3" for="width">Width (m):</label>
+                    <div class="col-md-3">
+                        <input type="number" class="form-control input-sm" id="width" name="width" ng-model="a.geometry.width" min='0' ng-change="updateGeometry()">
+                    </div>
+                </div>
+                <div class="form-group" ng-show="a.section_type == 'T' ">
+                    <label class="control-label col-md-3" for="bw">Web thickness (m):</label>
+                    <div class="col-md-3">
+                        <input type="number" class="form-control input-sm" id="bw" name="bw" ng-model="a.geometry.bw" min='0' ng-change="updateGeometry()">
+                    </div>
+                    <label class="control-label col-md-3" for="hf">Flange thickness (m):</label>
+                    <div class="col-md-3">
+                        <input type="number" class="form-control input-sm" id="hf" name="hf" ng-model="a.geometry.hf" min='0' ng-change="updateGeometry()">
+                    </div>
+                </div>
+                <div class="form-group" ng-show="a.section_type == 'I' ">
+                    <label class="control-label col-md-3" for="height">Height (m):</label>
+                    <div class="col-md-3">
+                        <input type="number" class="form-control input-sm" id="height" name="height" ng-model="a.geometry.height" min='0' ng-change="updateGeometry()">
+                    </div>
+                    <label class="control-label col-md-3" for="width">Width (m):</label>
+                    <div class="col-md-3">
+                        <input type="number" class="form-control input-sm" id="width" name="width" ng-model="a.geometry.width" min='0' ng-change="updateGeometry()">
+                    </div>
+                </div>
+                <div class="form-group" ng-show="a.section_type == 'I' ">
+                    <label class="control-label col-md-3" for="bw">Web thickness (m):</label>
+                    <div class="col-md-9">
+                        <input type="number" class="form-control input-sm" id="bw" name="bw" ng-model="a.geometry.bw" min='0' ng-change="updateGeometry()">
+                    </div>
+                </div>
+                <div class="form-group" ng-show="a.section_type == 'I' ">
+                    <label class="control-label col-md-3" for="hf1">Upper flange thickness (m):</label>
+                    <div class="col-md-3">
+                        <input type="number" class="form-control input-sm" id="hf1" name="hf1" ng-model="a.geometry.hf1" min='0' ng-change="updateGeometry()">
+                    </div>
+                    <label class="control-label col-md-3" for="hf2">Lower flange thickness (m):</label>
+                    <div class="col-md-3">
+                        <input type="number" class="form-control input-sm" id="hf2" name="hf2" ng-model="a.geometry.hf2" min='0' ng-change="updateGeometry()">
+                    </div>
+                </div>
+                <div class="form-group" ng-show="a.section_type == 'U' ">
+                    <label class="control-label col-md-3" for="height">Height (m):</label>
+                    <div class="col-md-3">
+                        <input type="number" class="form-control input-sm" id="height" name="height" ng-model="a.geometry.height" min='0' ng-change="updateGeometry()">
+                    </div>
+                    <label class="control-label col-md-3" for="width">Width (m):</label>
+                    <div class="col-md-3">
+                        <input type="number" class="form-control input-sm" id="width" name="width" ng-model="a.geometry.width" min='0' ng-change="updateGeometry()">
+                    </div>
+                </div>
+                <div class="form-group" ng-show="a.section_type == 'U' ">
+                    <label class="control-label col-md-3" for="bw">Base thickness (m):</label>
+                    <div class="col-md-9">
+                        <input type="number" class="form-control input-sm" id="bw" name="bw" ng-model="a.geometry.bw" min='0' ng-change="updateGeometry()">
+                    </div>
+                </div>
+                <div class="form-group" ng-show="a.section_type == 'U' ">
+                    <label class="control-label col-md-3" for="hf1">Left wall thickness (m):</label>
+                    <div class="col-md-3">
+                        <input type="number" class="form-control input-sm" id="hf1" name="hf1" ng-model="a.geometry.hf1" min='0' ng-change="updateGeometry()">
+                    </div>
+                    <label class="control-label col-md-3" for="hf2">Right wall thickness (m):</label>
+                    <div class="col-md-3">
+                        <input type="number" class="form-control input-sm" id="hf2" name="hf2" ng-model="a.geometry.hf2" min='0' ng-change="updateGeometry()">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <h5><b>Reinforcement</b></h5>
+                            <hot-table settings="{ afterChange: afterReinforcementChange }" row-headers="false" min-spare-rows="true" datarows="a.reinforcement" height="150" width="250">
+                                <hot-column data="y" title="'y'" type="'numeric'" width="80"></hot-column>
+                                <hot-column data="z" title="'z'" type="'numeric'" width="80"></hot-column>
+                                <hot-column data="diam" title="'Diameter'" type="'numeric'" width="80"></hot-column>
+                            </hot-table>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
