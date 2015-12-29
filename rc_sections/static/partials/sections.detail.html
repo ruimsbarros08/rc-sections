@@ -6,10 +6,11 @@
     <div class="col-md-8">
         <div class="row">
             <div class="col-md-12">
-                <div style="width: 50%;">
+<!--                 <div style="width: 50%;">
                     <label for="scale">Zoom</label>
                     <input type="range" name="scale" min="0.1" max="1.2" step="0.1" ng-model="scale" class="add-bottom">
-                </div>
+                </div> -->
+                <canvas paper-section height="500" width="500"></canvas>
                 <!-- <div id="webglContainer" ng-Section width="128" height="512" fillcontainer="true" scale="scale" geometry="a.geometry"></div> -->
                 <!-- <canvas id="myCanvas" resize style="width: 100%; height: 250px;"></canvas> -->
             </div>
@@ -24,33 +25,33 @@
                     <div id="uls" class="tab-pane fade in active">
                         <h3>Ultimate Limit State</h3>
                         <hot-table settings="{ afterChange: afterUlsChange }" row-headers="false" min-spare-rows="true" datarows="a.actions.uls" height="150" width="250">
-                            <hot-column data="n" title="'N'" type="'numeric'" width="80"></hot-column>
-                            <hot-column data="my" title="'My'" type="'numeric'" width="80"></hot-column>
-                            <hot-column data="mz" title="'Mz'" type="'numeric'" width="80"></hot-column>
+                            <hot-column data="n" title="'N'" type="'numeric'" format='0.0000' width="80"></hot-column>
+                            <hot-column data="my" title="'My'" type="'numeric'" format='0.0000' width="80"></hot-column>
+                            <hot-column data="mz" title="'Mz'" type="'numeric'" format='0.0000' width="80"></hot-column>
                         </hot-table>
                     </div>
                     <div id="char" class="tab-pane fade">
                         <h3>Characteristic</h3>
                         <hot-table settings="{ afterChange: afterCharChange }" row-headers="false" min-spare-rows="true" datarows="a.actions.char" height="150" width="250">
-                            <hot-column data="n" title="'N'" type="'numeric'" width="80"></hot-column>
-                            <hot-column data="my" title="'My'" type="'numeric'" width="80"></hot-column>
-                            <hot-column data="mz" title="'Mz'" type="'numeric'" width="80"></hot-column>
+                            <hot-column data="n" title="'N'" type="'numeric'" format='0.0000' width="80"></hot-column>
+                            <hot-column data="my" title="'My'" type="'numeric'" format='0.0000' width="80"></hot-column>
+                            <hot-column data="mz" title="'Mz'" type="'numeric'" format='0.0000' width="80"></hot-column>
                         </hot-table>
                     </div>
                     <div id="freq" class="tab-pane fade">
                         <h3>Frequent</h3>
                         <hot-table settings="{ afterChange: afterFreqChange }" row-headers="false" min-spare-rows="true" datarows="a.actions.freq" height="150" width="250">
-                            <hot-column data="n" title="'N'" type="'numeric'" width="80"></hot-column>
-                            <hot-column data="my" title="'My'" type="'numeric'" width="80"></hot-column>
-                            <hot-column data="mz" title="'Mz'" type="'numeric'" width="80"></hot-column>
+                            <hot-column data="n" title="'N'" type="'numeric'" format='0.0000' width="80"></hot-column>
+                            <hot-column data="my" title="'My'" type="'numeric'" format='0.0000' width="80"></hot-column>
+                            <hot-column data="mz" title="'Mz'" type="'numeric'" format='0.0000' width="80"></hot-column>
                         </hot-table>
                     </div>
                     <div id="qp" class="tab-pane fade">
                         <h3>Quasi-Permanent</h3>
                         <hot-table settings="{ afterChange: afterQpChange }" row-headers="false" min-spare-rows="true" datarows="a.actions.qp" height="150" width="250">
-                            <hot-column data="n" title="'N'" type="'numeric'" width="80"></hot-column>
-                            <hot-column data="my" title="'My'" type="'numeric'" width="80"></hot-column>
-                            <hot-column data="mz" title="'Mz'" type="'numeric'" width="80"></hot-column>
+                            <hot-column data="n" title="'N'" type="'numeric'" format='0.0000' width="80"></hot-column>
+                            <hot-column data="my" title="'My'" type="'numeric'" format='0.0000' width="80"></hot-column>
+                            <hot-column data="mz" title="'Mz'" type="'numeric'" format='0.0000' width="80"></hot-column>
                         </hot-table>
                     </div>
                 </div>
@@ -179,9 +180,9 @@
                         <div class="form-group">
                             <h5><b>Reinforcement</b></h5>
                             <hot-table settings="{ afterChange: afterReinforcementChange }" row-headers="false" min-spare-rows="true" datarows="a.reinforcement" height="150" width="250">
-                                <hot-column data="y" title="'y'" type="'numeric'" width="80"></hot-column>
-                                <hot-column data="z" title="'z'" type="'numeric'" width="80"></hot-column>
-                                <hot-column data="diam" title="'Diameter'" type="'numeric'" width="80"></hot-column>
+                                <hot-column data="y" title="'y'" type="'numeric'" format='0.0000' width="80"></hot-column>
+                                <hot-column data="z" title="'z'" type="'numeric'" format='0.0000' width="80"></hot-column>
+                                <hot-column data="diam" title="'Diameter'" type="'numeric'" format='0.0000' width="80"></hot-column>
                             </hot-table>
                         </div>
                     </div>

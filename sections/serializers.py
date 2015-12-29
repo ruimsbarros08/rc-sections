@@ -9,6 +9,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
 
 
+
 class SectionSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     class Meta:

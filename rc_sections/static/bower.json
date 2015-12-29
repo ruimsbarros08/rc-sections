@@ -19,7 +19,6 @@
     "font-awesome": "~4.5.0",
     "handsontable": "~0.20.2",
     "ngHandsontable": "~0.7.0",
-    "three.js": "threejs#*",
     "paper": "~0.9.25"
   }
 }
