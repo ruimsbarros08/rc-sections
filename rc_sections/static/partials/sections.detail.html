@@ -15,6 +15,37 @@
                 <!-- <canvas id="myCanvas" resize style="width: 100%; height: 250px;"></canvas> -->
             </div>
             <div class="col-md-12">
+<!-- 
+                <uib-tabset justified="true">
+                    <uib-tab heading="ULS">
+                        <hot-table settings="{ afterChange: afterUlsChange }" row-headers="false" min-spare-rows="true" datarows="a.actions.uls" height="150" width="250">
+                            <hot-column data="n" title="'N'" type="'numeric'" format='0.0000' width="80"></hot-column>
+                            <hot-column data="my" title="'My'" type="'numeric'" format='0.0000' width="80"></hot-column>
+                            <hot-column data="mz" title="'Mz'" type="'numeric'" format='0.0000' width="80"></hot-column>
+                        </hot-table>
+                    </uib-tab>
+                    <uib-tab heading="Characteristc">
+                        <hot-table settings="{ afterChange: afterCharChange }" row-headers="false" min-spare-rows="true" datarows="a.actions.char" height="150" width="250">
+                            <hot-column data="n" title="'N'" type="'numeric'" format='0.0000' width="80"></hot-column>
+                            <hot-column data="my" title="'My'" type="'numeric'" format='0.0000' width="80"></hot-column>
+                            <hot-column data="mz" title="'Mz'" type="'numeric'" format='0.0000' width="80"></hot-column>
+                        </hot-table>
+                    </uib-tab>
+                    <uib-tab heading="Frequent">
+                        <hot-table settings="{ afterChange: afterFreqChange }" row-headers="false" min-spare-rows="true" datarows="a.actions.freq" height="150" width="250">
+                            <hot-column data="n" title="'N'" type="'numeric'" format='0.0000' width="80"></hot-column>
+                            <hot-column data="my" title="'My'" type="'numeric'" format='0.0000' width="80"></hot-column>
+                            <hot-column data="mz" title="'Mz'" type="'numeric'" format='0.0000' width="80"></hot-column>
+                        </hot-table>
+                    </uib-tab>
+                    <uib-tab heading="Quasi-Permanent">
+                        <hot-table settings="{ afterChange: afterQpChange }" row-headers="false" min-spare-rows="true" datarows="a.actions.qp" height="150" width="250">
+                            <hot-column data="n" title="'N'" type="'numeric'" format='0.0000' width="80"></hot-column>
+                            <hot-column data="my" title="'My'" type="'numeric'" format='0.0000' width="80"></hot-column>
+                            <hot-column data="mz" title="'Mz'" type="'numeric'" format='0.0000' width="80"></hot-column>
+                        </hot-table>
+                    </uib-tab>
+                </uib-tabset> -->
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#uls">ULS</a></li>
                     <li><a data-toggle="tab" href="#char">Characteristc</a></li>
@@ -180,9 +211,9 @@
                         <div class="form-group">
                             <h5><b>Reinforcement</b></h5>
                             <hot-table settings="{ afterChange: afterReinforcementChange }" row-headers="false" min-spare-rows="true" datarows="a.reinforcement" height="150" width="250">
-                                <hot-column data="y" title="'y'" type="'numeric'" format='0.0000' width="80"></hot-column>
-                                <hot-column data="z" title="'z'" type="'numeric'" format='0.0000' width="80"></hot-column>
-                                <hot-column data="diam" title="'Diameter'" type="'numeric'" format='0.0000' width="80"></hot-column>
+                                <hot-column data="y" title="'y'" type="'numeric'" format='0.0000' width="80" renderer="reinforcementRenderer"></hot-column>
+                                <hot-column data="z" title="'z'" type="'numeric'" format='0.0000' width="80" renderer="reinforcementRenderer"></hot-column>
+                                <hot-column data="diam" title="'Diameter'" type="'numeric'" format='0.0000' width="80" renderer="reinforcementRenderer"></hot-column>
                             </hot-table>
                         </div>
                     </div>

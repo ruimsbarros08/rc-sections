@@ -153,19 +153,31 @@ app.config(function($locationProvider, $urlRouterProvider, $stateProvider, $reso
 				});
 
 				$scope.afterReinforcementChange = function(data, action) {
+					console.log(data);
 					if (action == 'edit') {
 						for (var i = 0; i < data.length; i++) {
 							$scope.a.reinforcement[data[i][0]][data[0][1]] = data[i][3];
-							console.log($scope.polygon, $scope.a.reinforcement[data[i][0]].y, $scope.a.reinforcement[data[i][0]].z);
 							updateReinforcementTable(data[i][0]);
+
 						}
 					}
+				}
 
+				$scope.reinforcementRenderer = function(hotInstance, td, row, col, prop, value, cellProperties){
+					var elem = angular.element(td);
+					if ($scope.a.reinforcement[row].valid != undefined){
+						if ($scope.a.reinforcement[row].valid){
+							elem.css("background-color", "#00FF00");
+						} else {
+							elem.css("background-color", "#FF0000");
+						}
+					}
+					td.innerHTML = value;
 				}
 
 				var updateReinforcementTable = function(idx) {
 					if ($scope.a.reinforcement[idx].y && $scope.a.reinforcement[idx].z) {
-						$scope.a.reinforcement[idx].valid = PolyK.ContainsPoint($scope.polygon, $scope.a.reinforcement[idx].y / 1000, $scope.a.reinforcement[idx].z / 1000);
+						$scope.a.reinforcement[idx].valid = PolyK.ContainsPoint($scope.polygon, $scope.a.reinforcement[idx].y, $scope.a.reinforcement[idx].z);
 					}
 				}
 

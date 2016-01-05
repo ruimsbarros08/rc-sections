@@ -63,6 +63,12 @@ app.directive('paperSection', function() {
                 drawEmptyBoard(element[0]); 
             });
 
+            scope.$watchCollection("a.reinforcement", function(newCollection, oldCollection, scope) {
+                console.log(scope.a.reinforcement);
+                drawEmptyBoard(element[0]); 
+            });
+            
+
 
         }
     };
