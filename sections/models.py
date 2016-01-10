@@ -50,7 +50,17 @@ class Section(models.Model):
 	section_type	= models.CharField(max_length=20, choices=SECTION_TYPE, default=RECT)
 	concerte_class	= models.CharField(max_length=20, choices=CONCRETE_CLASS, default=C15_20)
 	steel_class		= models.CharField(max_length=20, choices=STEEL_CLASS, default=A500)
-	geometry 		= JSONField(default = { "height": 0.4, "width": 0.2 })
+	geometry 		= JSONField(default = { "height": 0.4,
+											"width": 0.2,
+											"diam": 0.4,
+											"bw": 0.1,
+											"hf": 0.1,
+											"hf1": 0.1,
+											"hf2": 0.1,
+											"w1t": 0.1,
+											"w2t": 0.1,
+											"w1t": 0.1,
+											"wbt": 0.1 })
 	reinforcement 	= JSONField(default=[])
 	actions 		= JSONField(default={"uls": [], "char": [], "freq": [], "qp": [], })
 	# limit_state		= models.CharField(max_length=20, choices=LIMIT_STATE, default=ULTIMATE)

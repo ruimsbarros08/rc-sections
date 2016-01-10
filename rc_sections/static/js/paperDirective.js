@@ -16,39 +16,50 @@ app.directive('paperSection', function() {
                 scope.paper.project.activeLayer.removeChildren();
 
                 paper = scope.paper;
+                
+                var max; 
+                
+                if (scope.a.section_type == "CIRC"){
+                    max = scope.a.geometry.diam;
+                } else {
+                    if (scope.a.geometry.height > scope.a.geometry.width){
+                        max = scope.a.geometry.height;
+                    } else {
+                        max = scope.a.geometry.width;
+                    }
+                }
 
-                var margin = 10;
+                scale = 500 / max; 
 
-                var leftBot = new paper.Point(margin+0, margin+0);
-                var leftTop = new paper.Point(margin+0, margin+scope.a.geometry.height*1000);
-                var rightTop = new paper.Point(margin+scope.a.geometry.width*1000, margin+scope.a.geometry.height*1000);
-                var rightBot = new paper.Point(margin+scope.a.geometry.width*1000, margin+0);
+                // var margin = 0;
+                var margin = 0;
 
-                var left = new paper.Path();
-                left.strokeColor = 'black';
-                left.moveTo(leftBot);
-                left.lineTo(leftTop);
+                if (scope.a.section_type == "CIRC"){
+                    var myPath = new paper.Path.Circle({
+                        center: [250, 250],
+                        radius: scope.a.geometry.diam*scale/2
+                    });
 
-                var top = new paper.Path();
-                top.strokeColor = 'black';
-                top.moveTo(leftTop);
-                top.lineTo(rightTop);
+                } else {
+                    var seg = [];
+                    for (var i = 0; i<scope.polygon.length; i=i+2){
+                        seg.push([scope.polygon[i]*scale+margin, scope.polygon[i+1]*scale+margin ]);
+                    }
+                    var myPath = new paper.Path({segments: seg, selected: false});
+                }
+                myPath.fillColor = "#C0B44A";
+                myPath.strokeColor = 'black';
 
-                var right = new paper.Path();
-                right.strokeColor = 'black';
-                right.moveTo(rightTop);
-                right.lineTo(rightBot);
-
-                var bottom = new paper.Path();
-                bottom.strokeColor = 'black';
-                bottom.moveTo(rightBot);
-                bottom.lineTo(leftBot);
 
                 for (var i = 0; i< scope.a.reinforcement.length; i++){
 
-                    var center = new paper.Point(scope.a.reinforcement[i].y*1000+margin, scope.a.reinforcement[i].z*1000+margin);
+                    var center = new paper.Point(scope.a.reinforcement[i].y*scale+margin, scope.a.reinforcement[i].z*scale+margin);
                     var circle = new paper.Path.Circle(center, scope.a.reinforcement[i].diam);
-                    circle.fillColor = 'black';
+                    if (scope.a.reinforcement[i].valid){
+                        circle.fillColor = 'black';
+                    } else {
+                        circle.fillColor = 'red';
+                    }
 
                 }
 
@@ -64,7 +75,6 @@ app.directive('paperSection', function() {
             });
 
             scope.$watchCollection("a.reinforcement", function(newCollection, oldCollection, scope) {
-                console.log(scope.a.reinforcement);
                 drawEmptyBoard(element[0]); 
             });
             

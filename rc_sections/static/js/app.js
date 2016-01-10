@@ -85,11 +85,11 @@ app.config(function($locationProvider, $urlRouterProvider, $stateProvider, $reso
 										});
 										Notification.success('Section created');
 									}, function(response) {
-										if (response.status === 401 || response.status === 403) {
-											$window.open('', "_self");
-										} else {
-											Notification.error('Error');
-										};
+										// if (response.status === 401 || response.status === 403) {
+										// 	$window.open('', "_self");
+										// } else {
+										// };
+										Notification.error(response.data.detail);
 									});
 									$uibModalInstance.close();
 								}
@@ -139,25 +139,81 @@ app.config(function($locationProvider, $urlRouterProvider, $stateProvider, $reso
 
 
 				$scope.updateGeometry = function() {
-					if ($scope.a.section_type == "RECT") {
-						$scope.polygon = [0, 0, $scope.a.geometry.width, 0, $scope.a.geometry.width, $scope.a.geometry.height, 0, $scope.a.geometry.height];
+
+					switch($scope.a.section_type) {
+					    case "RECT":
+					        $scope.polygon = [0, 						0,
+					        				$scope.a.geometry.width, 	0,
+					        				$scope.a.geometry.width, 	$scope.a.geometry.height,
+					        				0, 							$scope.a.geometry.height];
+					        break;
+					    case "T":
+					        $scope.polygon = [$scope.a.geometry.width/2-$scope.a.geometry.bw/2, 0,
+					        				$scope.a.geometry.width/2+$scope.a.geometry.bw/2, 	0,
+					        				$scope.a.geometry.width/2+$scope.a.geometry.bw/2, 	$scope.a.geometry.height-$scope.a.geometry.hf,
+					        				$scope.a.geometry.width, 							$scope.a.geometry.height-$scope.a.geometry.hf,
+					        				$scope.a.geometry.width, 							$scope.a.geometry.height,
+					        				0, 													$scope.a.geometry.height,
+					        				0, 													$scope.a.geometry.height-$scope.a.geometry.hf,
+					        				0, 													$scope.a.geometry.height-$scope.a.geometry.hf,
+					        				$scope.a.geometry.width/2-$scope.a.geometry.bw/2, 	$scope.a.geometry.height-$scope.a.geometry.hf,
+					        				];
+					        break;
+					    case "I":
+					        $scope.polygon = [0, 												0,
+					        				$scope.a.geometry.width, 							0,
+											$scope.a.geometry.width, 							$scope.a.geometry.hf2,
+											$scope.a.geometry.width/2+$scope.a.geometry.bw/2, 	$scope.a.geometry.hf2,        				
+					        				$scope.a.geometry.width/2+$scope.a.geometry.bw/2,	$scope.a.geometry.height-$scope.a.geometry.hf1,
+					        				$scope.a.geometry.width, 							$scope.a.geometry.height-$scope.a.geometry.hf1,
+					        				$scope.a.geometry.width, 							$scope.a.geometry.height,
+					        				0, 													$scope.a.geometry.height,
+					        				0, 													$scope.a.geometry.height-$scope.a.geometry.hf1,
+					        				$scope.a.geometry.width/2-$scope.a.geometry.bw/2, 	$scope.a.geometry.height-$scope.a.geometry.hf1,
+					        				$scope.a.geometry.width/2-$scope.a.geometry.bw/2, 	$scope.a.geometry.hf2,
+					        				0, 													$scope.a.geometry.hf2];
+					        break;
+					    // case "U":
+					    //     $scope.polygon = [0, 0,
+									// 		$scope.a.geometry.width, 0,					        				
+									// 		$scope.a.geometry.width, $scope.a.geometry.hf2,        				
+									// 		$scope.a.geometry.width/2+$scope.a.geometry.bw/2, $scope.a.geometry.hf2,        				
+					    //     				$scope.a.geometry.width/2+$scope.a.geometry.bw/2, $scope.a.geometry.height-$scope.a.geometry.hf1,
+					    //     				$scope.a.geometry.width, $scope.a.geometry.height-$scope.a.geometry.hf1,
+					    //     				$scope.a.geometry.width, $scope.a.geometry.height,
+					    //     				0, $scope.a.geometry.height,
+					    //     				0, $scope.a.geometry.height-$scope.a.geometry.hf1,
+					    //     				$scope.a.geometry.width/2-$scope.a.geometry.bw/2, $scope.a.geometry.height-$scope.a.geometry.hf1,
+					    //     				$scope.a.geometry.width/2-$scope.a.geometry.bw/2, $scope.a.geometry.hf2,
+					    //     				0, $scope.a.geometry.hf2];
+					    //     break;
+					    default:
+					        $scope.polygon = undefined;
 					}
 
 					for (var i = 0; i < $scope.a.reinforcement.length; i++) {
-						updateReinforcementTable(i);
+						validateReinforcement(i);
 					}
 				}
 
 				$scope.a.$promise.then(function() {
+					// if ($scope.a.geometry != "CIRC"){
+					// }
 					$scope.updateGeometry();
 				});
 
+				$scope.$watchCollection("a.geometry", function(){
+					$scope.updateGeometry();
+					// if($scope.a.geometry != "CIRC"){	
+					// }
+				});
+
+
 				$scope.afterReinforcementChange = function(data, action) {
-					console.log(data);
 					if (action == 'edit') {
 						for (var i = 0; i < data.length; i++) {
 							$scope.a.reinforcement[data[i][0]][data[0][1]] = data[i][3];
-							updateReinforcementTable(data[i][0]);
+							validateReinforcement(data[i][0]);
 
 						}
 					}
@@ -175,9 +231,19 @@ app.config(function($locationProvider, $urlRouterProvider, $stateProvider, $reso
 					td.innerHTML = value;
 				}
 
-				var updateReinforcementTable = function(idx) {
+				var validateReinforcement = function(idx) {
 					if ($scope.a.reinforcement[idx].y && $scope.a.reinforcement[idx].z) {
-						$scope.a.reinforcement[idx].valid = PolyK.ContainsPoint($scope.polygon, $scope.a.reinforcement[idx].y, $scope.a.reinforcement[idx].z);
+						if ($scope.a.section_type!="CIRC"){
+							$scope.a.reinforcement[idx].valid = PolyK.ContainsPoint($scope.polygon, $scope.a.reinforcement[idx].y, $scope.a.reinforcement[idx].z);
+						} else {
+							var distToCenter = Math.sqrt(Math.pow($scope.a.reinforcement[idx].y, 2) + Math.pow($scope.a.reinforcement[idx].z, 2));
+							if (distToCenter>$scope.a.geometry.diam){
+								$scope.a.reinforcement[idx].valid = false;
+								
+							} else {
+								$scope.a.reinforcement[idx].valid = true;
+							}
+						}
 					}
 				}
 
@@ -214,12 +280,12 @@ app.config(function($locationProvider, $urlRouterProvider, $stateProvider, $reso
 					if (isValid) {
 						Section.update($scope.a, section, function() {
 							Notification.success('Section saved');
-						}, function() {
-							if (response.status === 401 || response.status === 403) {
-								$window.open('', "_self");
-							} else {
-								Notification.error('Unexpected error occured');
-							};
+						}, function(response) {
+							// if (response.status === 401 || response.status === 403) {
+							// 	$window.open('', "_self");
+							// } else {
+							// };
+							Notification.error(response.data.detail);
 						});
 					}
 				}
