@@ -16,15 +16,35 @@ SECTION_TYPE = (
 	(U, 'U'),
 )
 
-C15_20 = 'C15_20'
+C12_15 = 'C12_15'
+C16_20 = 'C16_20'
 C20_25 = 'C20_25'
 C25_30 = 'C25_30'
-C30_35 = 'C30_35'
+C30_37 = 'C30_37'
+C35_45 = 'C35_45'
+C40_50 = 'C40_50'
+C45_55 = 'C45_55'
+C50_60 = 'C50_60'
+C55_67 = 'C55_67'
+C60_75 = 'C60_75'
+C70_85 = 'C70_85'
+C80_95 = 'C80_95'
+C90_105 = 'C90_105'
 CONCRETE_CLASS = (
-	(C15_20, 'C15/20'),
+	(C12_15, 'C12/15'),
+	(C16_20, 'C16/20'),
 	(C20_25, 'C20/25'),
 	(C25_30, 'C25/30'),
-	(C30_35, 'C30/35'),
+	(C30_37, 'C30/37'),
+	(C35_45, 'C35/45'),
+	(C40_50, 'C40/50'),
+	(C45_55, 'C45/55'),
+	(C50_60, 'C50/60'),
+	(C55_67, 'C55/67'),
+	(C60_75, 'C60/75'),
+	(C70_85, 'C70/85'),
+	(C80_95, 'C80/95'),
+	(C90_105, 'C90/105'),
 )
 
 A400 = 'A400'
@@ -48,7 +68,7 @@ class Section(models.Model):
 	title 			= models.CharField(max_length=100, default='Untitled')
 	description 	= models.TextField(null=True)
 	section_type	= models.CharField(max_length=20, choices=SECTION_TYPE, default=RECT)
-	concerte_class	= models.CharField(max_length=20, choices=CONCRETE_CLASS, default=C15_20)
+	concrete_class	= models.CharField(max_length=20, choices=CONCRETE_CLASS, default=C20_25)
 	steel_class		= models.CharField(max_length=20, choices=STEEL_CLASS, default=A500)
 	geometry 		= JSONField(default = { "height": 0.4,
 											"width": 0.2,

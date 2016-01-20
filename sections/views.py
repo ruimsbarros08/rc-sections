@@ -9,6 +9,8 @@ from django.contrib.auth.models import User
 from rest_framework import generics
 from rest_framework import permissions
 from sections.permissions import IsOwnerOrReadOnly
+import requests
+import json
 
 
 class UserList(generics.ListAPIView):
@@ -61,6 +63,13 @@ class SectionsDetail(APIView):
 
     def put(self, request, pk, format=None):
         section = self.get_object(pk)
+#        for e in request.data['actions']['uls']:
+#            e['safe'] = "OK"
+
+        r = requests.post("http://openg.fe.up.pt/rcsections", data=request.data)
+        #request.data['actions'] = json.loads(r.json())
+        print r.text
+
         serializer = SectionSerializer(section, data=request.data)
         if serializer.is_valid():
             serializer.save()
