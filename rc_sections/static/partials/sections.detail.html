@@ -16,7 +16,7 @@
             </div>
             <div class="col-md-12">
                 <h3>Ultimate Limit State</h3>
-                <hot-table settings="{ afterChange: afterUlsChange }" row-headers="false" min-spare-rows="true" datarows="a.actions.uls" height="150" width="500">
+                <hot-table settings="{ afterChange: afterActionsChange }" row-headers="false" min-spare-rows="true" datarows="a.actions.uls" height="150" width="500">
                     <hot-column data="id" title="'ID'" type="'text'" width="80" renderer="actionsULSRenderer"></hot-column>
                     <hot-column data="n" title="'N'" type="'numeric'" format='0.0000' width="80" renderer="actionsULSRenderer"></hot-column>
                     <hot-column data="my" title="'My'" type="'numeric'" format='0.0000' width="80" renderer="actionsULSRenderer"></hot-column>

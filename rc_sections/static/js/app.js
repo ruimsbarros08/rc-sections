@@ -173,67 +173,41 @@ app.config(["$locationProvider", "$urlRouterProvider", "$stateProvider", "$resou
 
 					switch ($scope.a.section_type) {
 						case "RECT":
-							$scope.transVector = [-$scope.a.geometry.width/2, -$scope.a.geometry.height/2];
+							$scope.transVector = [-$scope.a.geometry.width / 2, -$scope.a.geometry.height / 2];
 							$scope.rotVector = [1, -1];
 							$scope.polygon = [
-								(0+$scope.transVector[0])*$scope.rotVector[0], 							(0+$scope.transVector[1])*$scope.rotVector[1],
-								($scope.a.geometry.width+$scope.transVector[0])*$scope.rotVector[0], 	(0+$scope.transVector[1])*$scope.rotVector[1],
-								($scope.a.geometry.width+$scope.transVector[0])*$scope.rotVector[0], 	($scope.a.geometry.height+$scope.transVector[1])*$scope.rotVector[1],
-								(0+$scope.transVector[0])*$scope.rotVector[0], 							($scope.a.geometry.height+$scope.transVector[1])*$scope.rotVector[1],
-								(0+$scope.transVector[0])*$scope.rotVector[0], 							(0+$scope.transVector[1])*$scope.rotVector[1]
+								(0 + $scope.transVector[0]) * $scope.rotVector[0], (0 + $scope.transVector[1]) * $scope.rotVector[1], ($scope.a.geometry.width + $scope.transVector[0]) * $scope.rotVector[0], (0 + $scope.transVector[1]) * $scope.rotVector[1], ($scope.a.geometry.width + $scope.transVector[0]) * $scope.rotVector[0], ($scope.a.geometry.height + $scope.transVector[1]) * $scope.rotVector[1], (0 + $scope.transVector[0]) * $scope.rotVector[0], ($scope.a.geometry.height + $scope.transVector[1]) * $scope.rotVector[1], (0 + $scope.transVector[0]) * $scope.rotVector[0], (0 + $scope.transVector[1]) * $scope.rotVector[1]
 							];
 							break;
 						case "T":
-							$scope.transVector = [-$scope.a.geometry.width/2, -($scope.a.geometry.height/2)];
+							$scope.transVector = [-$scope.a.geometry.width / 2, -($scope.a.geometry.height / 2)];
 							$scope.rotVector = [1, -1];
 							$scope.polygon = [
-								($scope.a.geometry.width / 2 - $scope.a.geometry.bw / 2)*$scope.rotVector[0]+$scope.transVector[0], 	-(0)*$scope.rotVector[1]+$scope.transVector[1],
-								($scope.a.geometry.width / 2 + $scope.a.geometry.bw / 2)*$scope.rotVector[0]+$scope.transVector[0], 	-(0)*$scope.rotVector[1]+$scope.transVector[1],
-								($scope.a.geometry.width / 2 + $scope.a.geometry.bw / 2)*$scope.rotVector[0]+$scope.transVector[0], 	-(($scope.a.geometry.height - $scope.a.geometry.hf))*$scope.rotVector[1]+$scope.transVector[1],
-								($scope.a.geometry.width)*$scope.rotVector[0]+$scope.transVector[0], 									-(($scope.a.geometry.height - $scope.a.geometry.hf))*$scope.rotVector[1]+$scope.transVector[1],
-								($scope.a.geometry.width)*$scope.rotVector[0]+$scope.transVector[0], 									-($scope.a.geometry.height)*$scope.rotVector[1]+$scope.transVector[1],
-								(0)*$scope.rotVector[0]+$scope.transVector[0], 															-($scope.a.geometry.height)*$scope.rotVector[1]+$scope.transVector[1],
-								(0)*$scope.rotVector[0]+$scope.transVector[0], 															-(($scope.a.geometry.height - $scope.a.geometry.hf))*$scope.rotVector[1]+$scope.transVector[1],
-								(0)*$scope.rotVector[0]+$scope.transVector[0], 															-(($scope.a.geometry.height - $scope.a.geometry.hf))*$scope.rotVector[1]+$scope.transVector[1],
-								($scope.a.geometry.width / 2 - $scope.a.geometry.bw / 2)*$scope.rotVector[0]+$scope.transVector[0], 	-(($scope.a.geometry.height - $scope.a.geometry.hf))*$scope.rotVector[1]+$scope.transVector[1],
-								($scope.a.geometry.width / 2 - $scope.a.geometry.bw / 2)*$scope.rotVector[0]+$scope.transVector[0], 	-(0)*$scope.rotVector[1]+$scope.transVector[1]
+								($scope.a.geometry.width / 2 - $scope.a.geometry.bw / 2) * $scope.rotVector[0] + $scope.transVector[0], -(0) * $scope.rotVector[1] + $scope.transVector[1], ($scope.a.geometry.width / 2 + $scope.a.geometry.bw / 2) * $scope.rotVector[0] + $scope.transVector[0], -(0) * $scope.rotVector[1] + $scope.transVector[1], ($scope.a.geometry.width / 2 + $scope.a.geometry.bw / 2) * $scope.rotVector[0] + $scope.transVector[0], -(($scope.a.geometry.height - $scope.a.geometry.hf)) * $scope.rotVector[1] + $scope.transVector[1], ($scope.a.geometry.width) * $scope.rotVector[0] + $scope.transVector[0], -(($scope.a.geometry.height - $scope.a.geometry.hf)) * $scope.rotVector[1] + $scope.transVector[1], ($scope.a.geometry.width) * $scope.rotVector[0] + $scope.transVector[0], -($scope.a.geometry.height) * $scope.rotVector[1] + $scope.transVector[1], (0) * $scope.rotVector[0] + $scope.transVector[0], -($scope.a.geometry.height) * $scope.rotVector[1] + $scope.transVector[1], (0) * $scope.rotVector[0] + $scope.transVector[0], -(($scope.a.geometry.height - $scope.a.geometry.hf)) * $scope.rotVector[1] + $scope.transVector[1], (0) * $scope.rotVector[0] + $scope.transVector[0], -(($scope.a.geometry.height - $scope.a.geometry.hf)) * $scope.rotVector[1] + $scope.transVector[1], ($scope.a.geometry.width / 2 - $scope.a.geometry.bw / 2) * $scope.rotVector[0] + $scope.transVector[0], -(($scope.a.geometry.height - $scope.a.geometry.hf)) * $scope.rotVector[1] + $scope.transVector[1], ($scope.a.geometry.width / 2 - $scope.a.geometry.bw / 2) * $scope.rotVector[0] + $scope.transVector[0], -(0) * $scope.rotVector[1] + $scope.transVector[1]
 							];
 							break;
 						case "I":
-							$scope.transVector = [-$scope.a.geometry.width/2, -($scope.a.geometry.hf1 + ($scope.a.geometry.height - $scope.a.geometry.hf1 - $scope.a.geometry.hf2)/2 ) ];
+							$scope.transVector = [-$scope.a.geometry.width / 2, -($scope.a.geometry.hf1 + ($scope.a.geometry.height - $scope.a.geometry.hf1 - $scope.a.geometry.hf2) / 2)];
 							$scope.rotVector = [1, -1];
 							$scope.polygon = [
-								(0)*$scope.rotVector[0]+$scope.transVector[0], 															-(0)*$scope.rotVector[1]+$scope.transVector[1],
-								($scope.a.geometry.width)*$scope.rotVector[0]+$scope.transVector[0], 									-(0)*$scope.rotVector[1]+$scope.transVector[1],
-								($scope.a.geometry.width)*$scope.rotVector[0]+$scope.transVector[0], 									-($scope.a.geometry.hf2)*$scope.rotVector[1]+$scope.transVector[1],
-								($scope.a.geometry.width / 2 + $scope.a.geometry.bw / 2)*$scope.rotVector[0]+$scope.transVector[0], 	-($scope.a.geometry.hf2)*$scope.rotVector[1]+$scope.transVector[1],
-								($scope.a.geometry.width / 2 + $scope.a.geometry.bw / 2)*$scope.rotVector[0]+$scope.transVector[0], 	-($scope.a.geometry.height - $scope.a.geometry.hf1)*$scope.rotVector[1]+$scope.transVector[1],
-								($scope.a.geometry.width)*$scope.rotVector[0]+$scope.transVector[0], 									-($scope.a.geometry.height - $scope.a.geometry.hf1)*$scope.rotVector[1]+$scope.transVector[1],
-								($scope.a.geometry.width)*$scope.rotVector[0]+$scope.transVector[0], 									-($scope.a.geometry.height)*$scope.rotVector[1]+$scope.transVector[1],
-								(0)*$scope.rotVector[0]+$scope.transVector[0], 															-($scope.a.geometry.height)*$scope.rotVector[1]+$scope.transVector[1],
-								(0)*$scope.rotVector[0]+$scope.transVector[0], 															-($scope.a.geometry.height - $scope.a.geometry.hf1)*$scope.rotVector[1]+$scope.transVector[1],
-								($scope.a.geometry.width / 2 - $scope.a.geometry.bw / 2)*$scope.rotVector[0]+$scope.transVector[0], 	-($scope.a.geometry.height - $scope.a.geometry.hf1)*$scope.rotVector[1]+$scope.transVector[1],
-								($scope.a.geometry.width / 2 - $scope.a.geometry.bw / 2)*$scope.rotVector[0]+$scope.transVector[0], 	-($scope.a.geometry.hf2)*$scope.rotVector[1]+$scope.transVector[1],
-								(0)*$scope.rotVector[0]+$scope.transVector[0], 															-($scope.a.geometry.hf2)*$scope.rotVector[1]+$scope.transVector[1],
-								(0)*$scope.rotVector[0]+$scope.transVector[0], 															-(0)*$scope.rotVector[1]+$scope.transVector[1]
+								(0) * $scope.rotVector[0] + $scope.transVector[0], -(0) * $scope.rotVector[1] + $scope.transVector[1], ($scope.a.geometry.width) * $scope.rotVector[0] + $scope.transVector[0], -(0) * $scope.rotVector[1] + $scope.transVector[1], ($scope.a.geometry.width) * $scope.rotVector[0] + $scope.transVector[0], -($scope.a.geometry.hf2) * $scope.rotVector[1] + $scope.transVector[1], ($scope.a.geometry.width / 2 + $scope.a.geometry.bw / 2) * $scope.rotVector[0] + $scope.transVector[0], -($scope.a.geometry.hf2) * $scope.rotVector[1] + $scope.transVector[1], ($scope.a.geometry.width / 2 + $scope.a.geometry.bw / 2) * $scope.rotVector[0] + $scope.transVector[0], -($scope.a.geometry.height - $scope.a.geometry.hf1) * $scope.rotVector[1] + $scope.transVector[1], ($scope.a.geometry.width) * $scope.rotVector[0] + $scope.transVector[0], -($scope.a.geometry.height - $scope.a.geometry.hf1) * $scope.rotVector[1] + $scope.transVector[1], ($scope.a.geometry.width) * $scope.rotVector[0] + $scope.transVector[0], -($scope.a.geometry.height) * $scope.rotVector[1] + $scope.transVector[1], (0) * $scope.rotVector[0] + $scope.transVector[0], -($scope.a.geometry.height) * $scope.rotVector[1] + $scope.transVector[1], (0) * $scope.rotVector[0] + $scope.transVector[0], -($scope.a.geometry.height - $scope.a.geometry.hf1) * $scope.rotVector[1] + $scope.transVector[1], ($scope.a.geometry.width / 2 - $scope.a.geometry.bw / 2) * $scope.rotVector[0] + $scope.transVector[0], -($scope.a.geometry.height - $scope.a.geometry.hf1) * $scope.rotVector[1] + $scope.transVector[1], ($scope.a.geometry.width / 2 - $scope.a.geometry.bw / 2) * $scope.rotVector[0] + $scope.transVector[0], -($scope.a.geometry.hf2) * $scope.rotVector[1] + $scope.transVector[1], (0) * $scope.rotVector[0] + $scope.transVector[0], -($scope.a.geometry.hf2) * $scope.rotVector[1] + $scope.transVector[1], (0) * $scope.rotVector[0] + $scope.transVector[0], -(0) * $scope.rotVector[1] + $scope.transVector[1]
 							];
 							break;
 						case "U":
-							$scope.transVector = [-$scope.a.geometry.width/2, -$scope.a.geometry.height/2 ];
+							$scope.transVector = [-$scope.a.geometry.width / 2, -$scope.a.geometry.height / 2];
 							$scope.rotVector = [1, -1];
 							$scope.polygon = [
-								(0)*$scope.rotVector[0]+$scope.transVector[0], 															-(0)*$scope.rotVector[1]+$scope.transVector[1],
-								($scope.a.geometry.width)*$scope.rotVector[0]+$scope.transVector[0], 									-(0)*$scope.rotVector[1]+$scope.transVector[1],
-								($scope.a.geometry.width)*$scope.rotVector[0]+$scope.transVector[0], 									-($scope.a.geometry.height)*$scope.rotVector[1]+$scope.transVector[1],
-								($scope.a.geometry.width - $scope.a.geometry.w2t)*$scope.rotVector[0]+$scope.transVector[0], 			-($scope.a.geometry.height)*$scope.rotVector[1]+$scope.transVector[1],
-								($scope.a.geometry.width - $scope.a.geometry.w2t)*$scope.rotVector[0]+$scope.transVector[0], 			-($scope.a.geometry.wbt)*$scope.rotVector[1]+$scope.transVector[1],
-								($scope.a.geometry.w1t)*$scope.rotVector[0]+$scope.transVector[0], 										-($scope.a.geometry.wbt)*$scope.rotVector[1]+$scope.transVector[1],
-								($scope.a.geometry.w1t)*$scope.rotVector[0]+$scope.transVector[0], 										-($scope.a.geometry.height)*$scope.rotVector[1]+$scope.transVector[1],
-								(0)*$scope.rotVector[0]+$scope.transVector[0], 															-($scope.a.geometry.height)*$scope.rotVector[1]+$scope.transVector[1],
-								(0)*$scope.rotVector[0]+$scope.transVector[0], 															-(0)*$scope.rotVector[1]+$scope.transVector[1]
+								(0) * $scope.rotVector[0] + $scope.transVector[0], -(0) * $scope.rotVector[1] + $scope.transVector[1], ($scope.a.geometry.width) * $scope.rotVector[0] + $scope.transVector[0], -(0) * $scope.rotVector[1] + $scope.transVector[1], ($scope.a.geometry.width) * $scope.rotVector[0] + $scope.transVector[0], -($scope.a.geometry.height) * $scope.rotVector[1] + $scope.transVector[1], ($scope.a.geometry.width - $scope.a.geometry.w2t) * $scope.rotVector[0] + $scope.transVector[0], -($scope.a.geometry.height) * $scope.rotVector[1] + $scope.transVector[1], ($scope.a.geometry.width - $scope.a.geometry.w2t) * $scope.rotVector[0] + $scope.transVector[0], -($scope.a.geometry.wbt) * $scope.rotVector[1] + $scope.transVector[1], ($scope.a.geometry.w1t) * $scope.rotVector[0] + $scope.transVector[0], -($scope.a.geometry.wbt) * $scope.rotVector[1] + $scope.transVector[1], ($scope.a.geometry.w1t) * $scope.rotVector[0] + $scope.transVector[0], -($scope.a.geometry.height) * $scope.rotVector[1] + $scope.transVector[1], (0) * $scope.rotVector[0] + $scope.transVector[0], -($scope.a.geometry.height) * $scope.rotVector[1] + $scope.transVector[1], (0) * $scope.rotVector[0] + $scope.transVector[0], -(0) * $scope.rotVector[1] + $scope.transVector[1]
 							];
 							break;
+						case "CIRC":
+							$scope.transVector = [-$scope.a.geometry.diam / 2, -$scope.a.geometry.diam / 2];
+							$scope.rotVector = [1, -1];
+							$scope.polygon = undefined;
+							break;
 						default:
+							$scope.transVector = undefined;
+							$scope.rotVector = undefined;
 							$scope.polygon = undefined;
 					}
 
@@ -241,11 +215,6 @@ app.config(["$locationProvider", "$urlRouterProvider", "$stateProvider", "$resou
 						validateReinforcement(i);
 					}
 				}
-
-
-				// $scope.a.$promise.then(function() {
-				// 	$scope.updateGeometry();
-				// });
 
 				$scope.$watchCollection("a.geometry", function() {
 					$scope.a.$promise.then(function() {
@@ -283,9 +252,21 @@ app.config(["$locationProvider", "$urlRouterProvider", "$stateProvider", "$resou
 					})
 				}
 
+				$scope.afterActionsChange = function(data, action){
+					if (action == 'edit') {
+						for (var i = 0; i < data.length; i++) {
+							if (data[i][1] == "n" || data[i][1] == "my" || data[i][1] == "mz"){
+								$scope.a.actions.uls[data[i][0]].safe = null;
+							}
+						}
+					}
+				}
+
 				var actionsRenderer = function(hotInstance, td, row, col, prop, value, cellProperties, state) {
 					$scope.a.$promise.then(function() {
 						var elem = angular.element(td);
+
+						//validate safety - apply to all line
 						if ($scope.a.actions[state][row] != undefined) {
 							if ($scope.a.actions[state][row].safe != undefined) {
 								if ($scope.a.actions[state][row].safe == "OK") {
@@ -294,6 +275,18 @@ app.config(["$locationProvider", "$urlRouterProvider", "$stateProvider", "$resou
 									elem.css("background-color", "#FF0000");
 								}
 							}
+						}
+
+						//validate id duplication - apply to cell
+						if (prop == "id"){
+							if ($scope.a.actions[state][row] != undefined) {
+								if ($scope.a.actions[state][row].id != undefined || $scope.a.actions[state][row].id != null) {
+									if (!validateID(state, $scope.a.actions[state][row].id, row)) {
+										elem.css("background-color", "#FFF063");
+									} 
+								}
+							}
+
 						}
 						td.innerHTML = value;
 					});
@@ -315,12 +308,10 @@ app.config(["$locationProvider", "$urlRouterProvider", "$stateProvider", "$resou
 					actionsRenderer(hotInstance, td, row, col, prop, value, cellProperties, "qp");
 				}
 
-				var validateID = function(state) {
-					for (var i = 0; i < $scope.actions[state].length-1; i++) {
-						for (var j = i+1; j<$scope.actions[state].length; j++) {
-							if ($scope.actions[state][i].id == $scope.actions[state][j].id){
-								return false;
-							}
+				var validateID = function(state, id, row) {
+					for (var i = 0; i < $scope.a.actions[state].length; i++) {
+						if ($scope.a.actions[state][i].id == id && row != i) {
+							return false;
 						}
 					}
 					return true;
@@ -329,12 +320,22 @@ app.config(["$locationProvider", "$urlRouterProvider", "$stateProvider", "$resou
 				var validateReinforcement = function(idx) {
 					if ($scope.a.reinforcement[idx].y && $scope.a.reinforcement[idx].z) {
 						if ($scope.a.section_type != "CIRC") {
-							$scope.a.reinforcement[idx].valid = PolyK.ContainsPoint($scope.polygon, $scope.a.reinforcement[idx].y, $scope.a.reinforcement[idx].z);
+
+							var closest = PolyK.ClosestEdge($scope.polygon, $scope.a.reinforcement[idx].y, $scope.a.reinforcement[idx].z);
+							var inside = PolyK.ContainsPoint($scope.polygon, $scope.a.reinforcement[idx].y, $scope.a.reinforcement[idx].z);
+							var abs_closest = parseFloat(Math.abs(closest.dist).toFixed(10));
+							var half_rein = $scope.a.reinforcement[idx].diam / (2 * 1000);
+							half_rein = parseFloat(Math.abs(half_rein).toFixed(10));;
+							if (inside && abs_closest > half_rein) {
+								$scope.a.reinforcement[idx].valid = true;
+							} else {
+								$scope.a.reinforcement[idx].valid = false;
+							}
 						} else {
-							var new_y = $scope.a.reinforcement[idx].y - $scope.a.geometry.diam / 2;
-							var new_z = $scope.a.reinforcement[idx].z - $scope.a.geometry.diam / 2;
-							var distToCenter = Math.sqrt(Math.pow(new_y, 2) + Math.pow(new_z, 2));
-							if (distToCenter > $scope.a.geometry.diam / 2) {
+							var distToCenter = Math.sqrt(Math.pow($scope.a.reinforcement[idx].y, 2) + Math.pow($scope.a.reinforcement[idx].z, 2));
+							var radius = Math.abs($scope.a.geometry.diam / 2);
+							var distToBorder = radius - distToCenter - $scope.a.reinforcement[idx].diam / (2 * 1000);
+							if (distToBorder < 0) {
 								$scope.a.reinforcement[idx].valid = false;
 							} else {
 								$scope.a.reinforcement[idx].valid = true;
@@ -345,34 +346,11 @@ app.config(["$locationProvider", "$urlRouterProvider", "$stateProvider", "$resou
 					}
 				}
 
-				// var actionsChange = function(data, action, state){
-				// 	if (action == 'edit') {
-				// 		for (var i = 0; i < data.length; i++) {
-				// 			$scope.a.actions['state'][data[i][0]][data[0][1]] = data[i][3];
-				// 		}
-				// 	}
-				// }
-
-				// $scope.afterUlsChange = function(data, action) {
-				// 	actionsChange(data, action, "uls");
-				// }
-
-				// $scope.afterCharChange = function(data, action) {
-				// 	actionsChange(data, action, "char");
-				// }
-
-				// $scope.afterFreqChange = function(data, action) {
-				// 	actionsChange(data, action, "freq");
-				// }
-				// $scope.afterQpChange = function(data, action) {
-				// 	actionsChange(data, action, "qp");
-				// }
-
 				$scope.submitUpdateForm = function(isValid) {
 					if (isValid) {
 						$scope.a.uls_curve_index = null;
-						console.log(JSON.stringify($scope.a));
-						Section.update($scope.a, section, function() {
+						Section.update($scope.a, section, function(data) {
+							$scope.a = data;
 							Notification.success('Section saved');
 						}, function(response) {
 							Notification.error(response.data.detail);

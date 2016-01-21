@@ -79,7 +79,7 @@ app.directive('paperSection', function() {
                 drawEmptyBoard(element[0]);
             });
 
-            scope.$watchCollection("a.reinforcement", function(newCollection, oldCollection, scope) {
+            scope.$watch("a.reinforcement", function(newCollection, oldCollection, scope) {
                 // scope.$watch("a.reinforcement", function(newCollection, oldCollection, scope) {
                 drawEmptyBoard(element[0]);
             }, true);

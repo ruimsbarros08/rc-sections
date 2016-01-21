@@ -63,8 +63,8 @@ class SectionsDetail(APIView):
 
     def put(self, request, pk, format=None):
         section = self.get_object(pk)
-#        for e in request.data['actions']['uls']:
-#            e['safe'] = "OK"
+        # for e in request.data['actions']['uls']:
+        #     e['safe'] = "OK"
 
         r = requests.post("http://openg.fe.up.pt/rcsections", data=request.data)
         #request.data['actions'] = json.loads(r.json())
