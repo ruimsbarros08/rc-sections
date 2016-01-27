@@ -85,10 +85,7 @@ app.config(["$locationProvider", "$urlRouterProvider", "$stateProvider", "$resou
 										});
 										Notification.success('Section created');
 									}, function(response) {
-										// if (response.status === 401 || response.status === 403) {
-										// 	$window.open('', "_self");
-										// } else {
-										// };
+
 										Notification.error(response.data.detail);
 									});
 									$uibModalInstance.close();
@@ -211,6 +208,8 @@ app.config(["$locationProvider", "$urlRouterProvider", "$stateProvider", "$resou
 							$scope.polygon = undefined;
 					}
 
+					$scope.a.geometry.isValid = validateGeomtry();
+
 					for (var i = 0; i < $scope.a.reinforcement.length; i++) {
 						validateReinforcement(i);
 					}
@@ -296,16 +295,16 @@ app.config(["$locationProvider", "$urlRouterProvider", "$stateProvider", "$resou
 					actionsRenderer(hotInstance, td, row, col, prop, value, cellProperties, "uls");
 				}
 
-				$scope.actionsCharRenderer = function(hotInstance, td, row, col, prop, value, cellProperties) {
-					actionsRenderer(hotInstance, td, row, col, prop, value, cellProperties, "char");
-				}
+				// $scope.actionsCharRenderer = function(hotInstance, td, row, col, prop, value, cellProperties) {
+				// 	actionsRenderer(hotInstance, td, row, col, prop, value, cellProperties, "char");
+				// }
 
-				$scope.actionsFreqRenderer = function(hotInstance, td, row, col, prop, value, cellProperties) {
-					actionsRenderer(hotInstance, td, row, col, prop, value, cellProperties, "freq");
-				}
+				// $scope.actionsFreqRenderer = function(hotInstance, td, row, col, prop, value, cellProperties) {
+				// 	actionsRenderer(hotInstance, td, row, col, prop, value, cellProperties, "freq");
+				// }
 
-				$scope.actionsQPRenderer = function(hotInstance, td, row, col, prop, value, cellProperties) {
-					actionsRenderer(hotInstance, td, row, col, prop, value, cellProperties, "qp");
+				// $scope.actionsQPRenderer = function(hotInstance, td, row, col, prop, value, cellProperties) {
+				// 	actionsRenderer(hotInstance, td, row, col, prop, value, cellProperties, "qp");
 				}
 
 				var validateID = function(state, id, row) {
@@ -345,6 +344,69 @@ app.config(["$locationProvider", "$urlRouterProvider", "$stateProvider", "$resou
 						$scope.a.reinforcement[idx].valid = undefined;
 					}
 				}
+
+				var validateGeomtry = function(){
+					switch ($scope.a.section_type) {
+						case "RECT":
+							if ($scope.a.geometry.width > 0 && $scope.a.geometry.height > 0){
+								return true;
+							} else {
+								return false;
+							}
+							break;
+						case "T":
+							if ($scope.a.geometry.bw > 0 && $scope.a.geometry.width > $scope.a.geometry.bw){
+								return true;
+							} else {
+								return false;
+							}
+
+							if ($scope.a.geometry.hf > 0 && $scope.a.geometry.height > $scope.a.geometry.hf){
+								return true;
+							} else {
+								return false;
+							}
+
+							break;
+						case "I":
+							if ($scope.a.geometry.hf1 > 0 && $scope.a.geometry.hf2 > 0 && $scope.a.geometry.height > $scope.a.geometry.hf1 + $scope.a.geometry.hf2){
+								return true;
+							} else {
+								return false;
+							}
+
+							if ($scope.a.geometry.bw > 0 && $scope.a.geometry.width > $scope.a.geometry.bw){
+								return true;
+							} else {
+								return false;
+							}
+
+							break;
+						case "U":
+							if ($scope.a.geometry.w1t > 0 && $scope.a.geometry.w2t > 0 && $scope.a.geometry.width > $scope.a.geometry.w1t + $scope.a.geometry.w2t){
+								return true;
+							} else {
+								return false;
+							}
+
+							if ($scope.a.geometry.wbt > 0 && $scope.a.geometry.height > $scope.a.geometry.wbt){
+								return true;
+							} else {
+								return false;
+							}
+
+							break;
+						case "CIRC":
+							if ($scope.a.geometry.diam > 0){
+								return true;
+							} else {
+								return false;
+							}
+							break;
+						default:
+							return false;
+					}
+				} 
 
 				$scope.submitUpdateForm = function(isValid) {
 					if (isValid) {
