@@ -223,7 +223,8 @@ app.config(["$locationProvider", "$urlRouterProvider", "$stateProvider", "$resou
 
 
 				$scope.afterReinforcementChange = function(data, action) {
-					if (action == 'edit') {
+
+					if (action == 'edit' || action == 'paste') {
 						for (var i = 0; i < data.length; i++) {
 							// $scope.a.reinforcement[data[i][0]][data[0][1]] = data[i][3];
 							validateReinforcement(data[i][0]);
@@ -251,14 +252,18 @@ app.config(["$locationProvider", "$urlRouterProvider", "$stateProvider", "$resou
 					})
 				}
 
-				$scope.afterActionsChange = function(data, action){
-					if (action == 'edit') {
+				$scope.afterActionsChange = function(data, action) {
+					if (action == 'edit' || action == 'paste') {
 						for (var i = 0; i < data.length; i++) {
-							if (data[i][1] == "n" || data[i][1] == "my" || data[i][1] == "mz"){
+							if (data[i][1] == "n" || data[i][1] == "my" || data[i][1] == "mz") {
 								$scope.a.actions.uls[data[i][0]].safe = null;
 							}
 						}
 					}
+				}
+
+				$scope.cleanReinforcementTable = function() {
+					$scope.a.reinforcement = [];
 				}
 
 				var actionsRenderer = function(hotInstance, td, row, col, prop, value, cellProperties, state) {
@@ -277,12 +282,12 @@ app.config(["$locationProvider", "$urlRouterProvider", "$stateProvider", "$resou
 						}
 
 						//validate id duplication - apply to cell
-						if (prop == "id"){
+						if (prop == "id") {
 							if ($scope.a.actions[state][row] != undefined) {
 								if ($scope.a.actions[state][row].id != undefined || $scope.a.actions[state][row].id != null) {
 									if (!validateID(state, $scope.a.actions[state][row].id, row)) {
 										elem.css("background-color", "#FFF063");
-									} 
+									}
 								}
 							}
 
@@ -295,6 +300,10 @@ app.config(["$locationProvider", "$urlRouterProvider", "$stateProvider", "$resou
 					actionsRenderer(hotInstance, td, row, col, prop, value, cellProperties, "uls");
 				}
 
+				$scope.cleanActionsTable = function() {
+					$scope.a.actions.uls = [];
+				}
+
 				// $scope.actionsCharRenderer = function(hotInstance, td, row, col, prop, value, cellProperties) {
 				// 	actionsRenderer(hotInstance, td, row, col, prop, value, cellProperties, "char");
 				// }
@@ -305,7 +314,7 @@ app.config(["$locationProvider", "$urlRouterProvider", "$stateProvider", "$resou
 
 				// $scope.actionsQPRenderer = function(hotInstance, td, row, col, prop, value, cellProperties) {
 				// 	actionsRenderer(hotInstance, td, row, col, prop, value, cellProperties, "qp");
-				}
+				//}
 
 				var validateID = function(state, id, row) {
 					for (var i = 0; i < $scope.a.actions[state].length; i++) {
@@ -317,7 +326,7 @@ app.config(["$locationProvider", "$urlRouterProvider", "$stateProvider", "$resou
 				}
 
 				var validateReinforcement = function(idx) {
-					if ($scope.a.reinforcement[idx].y && $scope.a.reinforcement[idx].z) {
+					if ($scope.a.reinforcement[idx].y != null && $scope.a.reinforcement[idx].z != null) {
 						if ($scope.a.section_type != "CIRC") {
 
 							var closest = PolyK.ClosestEdge($scope.polygon, $scope.a.reinforcement[idx].y, $scope.a.reinforcement[idx].z);
@@ -345,59 +354,59 @@ app.config(["$locationProvider", "$urlRouterProvider", "$stateProvider", "$resou
 					}
 				}
 
-				var validateGeomtry = function(){
+				var validateGeomtry = function() {
 					switch ($scope.a.section_type) {
 						case "RECT":
-							if ($scope.a.geometry.width > 0 && $scope.a.geometry.height > 0){
+							if ($scope.a.geometry.width > 0 && $scope.a.geometry.height > 0) {
 								return true;
 							} else {
 								return false;
 							}
 							break;
 						case "T":
-							if ($scope.a.geometry.bw > 0 && $scope.a.geometry.width > $scope.a.geometry.bw){
-								return true;
+							if ($scope.a.geometry.bw > 0 && $scope.a.geometry.width > $scope.a.geometry.bw) {
+								if ($scope.a.geometry.hf > 0 && $scope.a.geometry.height > $scope.a.geometry.hf) {
+									return true;
+								} else {
+									return false;
+								}
 							} else {
 								return false;
 							}
 
-							if ($scope.a.geometry.hf > 0 && $scope.a.geometry.height > $scope.a.geometry.hf){
-								return true;
-							} else {
-								return false;
-							}
+
 
 							break;
 						case "I":
-							if ($scope.a.geometry.hf1 > 0 && $scope.a.geometry.hf2 > 0 && $scope.a.geometry.height > $scope.a.geometry.hf1 + $scope.a.geometry.hf2){
-								return true;
+							if ($scope.a.geometry.hf1 > 0 && $scope.a.geometry.hf2 > 0 && $scope.a.geometry.height > $scope.a.geometry.hf1 + $scope.a.geometry.hf2) {
+								if ($scope.a.geometry.bw > 0 && $scope.a.geometry.width > $scope.a.geometry.bw) {
+									return true;
+								} else {
+									return false;
+								}
 							} else {
 								return false;
 							}
 
-							if ($scope.a.geometry.bw > 0 && $scope.a.geometry.width > $scope.a.geometry.bw){
-								return true;
-							} else {
-								return false;
-							}
+
 
 							break;
 						case "U":
-							if ($scope.a.geometry.w1t > 0 && $scope.a.geometry.w2t > 0 && $scope.a.geometry.width > $scope.a.geometry.w1t + $scope.a.geometry.w2t){
-								return true;
+							if ($scope.a.geometry.w1t > 0 && $scope.a.geometry.w2t > 0 && $scope.a.geometry.width > $scope.a.geometry.w1t + $scope.a.geometry.w2t) {
+								if ($scope.a.geometry.wbt > 0 && $scope.a.geometry.height > $scope.a.geometry.wbt) {
+									return true;
+								} else {
+									return false;
+								}
 							} else {
 								return false;
 							}
 
-							if ($scope.a.geometry.wbt > 0 && $scope.a.geometry.height > $scope.a.geometry.wbt){
-								return true;
-							} else {
-								return false;
-							}
+
 
 							break;
 						case "CIRC":
-							if ($scope.a.geometry.diam > 0){
+							if ($scope.a.geometry.diam > 0) {
 								return true;
 							} else {
 								return false;
@@ -406,7 +415,7 @@ app.config(["$locationProvider", "$urlRouterProvider", "$stateProvider", "$resou
 						default:
 							return false;
 					}
-				} 
+				}
 
 				$scope.submitUpdateForm = function(isValid) {
 					if (isValid) {
@@ -435,6 +444,14 @@ app.config(["$locationProvider", "$urlRouterProvider", "$stateProvider", "$resou
 					});
 				}
 
+				$scope.isSelected = function(id) {
+					console.log(id, $scope.a.id);
+					if (id == $scope.a.id) {
+						return true;
+					} else {
+						return false;
+					}
+				}
 
 
 			}],

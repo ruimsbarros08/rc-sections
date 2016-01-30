@@ -57,7 +57,6 @@ app.directive('paperSection', function() {
 
 
                         for (var i = 0; i < scope.a.reinforcement.length; i++) {
-                            // console.log(scope.a.reinforcement[i]);
                             var center = new paper.Point((scope.a.reinforcement[i].y * scope.rotVector[0] - scope.transVector[0]) * scale + margin, (scope.a.reinforcement[i].z * scope.rotVector[1] - scope.transVector[1]) * scale + margin);
                             var circle = new paper.Path.Circle(center, parseFloat((scope.a.reinforcement[i].diam / 1000) * scale));
                             if (scope.a.reinforcement[i].valid) {
@@ -65,8 +64,24 @@ app.directive('paperSection', function() {
                             } else {
                                 circle.fillColor = 'red';
                             }
-
                         }
+
+                        var yAxis = new paper.Path({
+                            segments: [
+                                [(0 * scope.rotVector[0] - scope.transVector[0]) * scale, (0 * scope.rotVector[1] - scope.transVector[1]) * scale],
+                                [(0.1 * scope.rotVector[0] - scope.transVector[0]) * scale, (0 * scope.rotVector[1] - scope.transVector[1]) * scale]
+                            ],
+                            strokeColor: 'blue',
+                        });
+
+                        var zAxis = new paper.Path({
+                            segments: [
+                                [(0 * scope.rotVector[0] - scope.transVector[0]) * scale, (0 * scope.rotVector[1] - scope.transVector[1]) * scale],
+                                [(0 * scope.rotVector[0] - scope.transVector[0]) * scale, (0.1 * scope.rotVector[1] - scope.transVector[1]) * scale]
+                            ],
+                            strokeColor: 'blue',
+                        });
+
                     } else {
                         var text = new paper.PointText(new paper.Point(250, 250));
                         text.justification = 'center';

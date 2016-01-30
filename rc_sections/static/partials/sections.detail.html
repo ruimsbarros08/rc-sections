@@ -16,6 +16,8 @@
             </div>
             <div class="col-md-12">
                 <h3>Ultimate Limit State</h3>
+                <button type="button" class="btn btn-warning btn-sm" ng-click="cleanActionsTable()" ng-disabled="a.actions.uls == []">Empty table</button>
+
                 <hot-table settings="{ afterChange: afterActionsChange }" row-headers="false" min-spare-rows="true" datarows="a.actions.uls" height="150" width="500">
                     <hot-column data="id" title="'ID'" type="'text'" width="80" renderer="actionsULSRenderer"></hot-column>
                     <hot-column data="n" title="'N'" type="'numeric'" format='0.0000' width="80" renderer="actionsULSRenderer"></hot-column>
@@ -163,6 +165,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <h5><b>Reinforcement</b></h5>
+                            <button type="button" class="btn btn-warning btn-sm" ng-click="cleanReinforcementTable()" ng-disabled="a.reinforcement == []">Empty table</button>
                             <hot-table settings="{ afterChange: afterReinforcementChange }" row-headers="false" min-spare-rows="true" datarows="a.reinforcement" height="300" width="250" hot-id="reinforcement-table">
                                 <hot-column data="y" title="'y'" type="'numeric'" format='0.0000' width="80" renderer="reinforcementRenderer"></hot-column>
                                 <hot-column data="z" title="'z'" type="'numeric'" format='0.0000' width="80" renderer="reinforcementRenderer"></hot-column>
